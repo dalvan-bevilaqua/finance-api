@@ -1,6 +1,10 @@
 package com.br.finance.modules.despesa.controller;
 
+import com.br.finance.modules.despesa.dto.DespesaDto;
+import com.br.finance.modules.despesa.dto.DespesaFilter;
 import com.br.finance.modules.despesa.entity.Despesa;
+import com.br.finance.modules.despesa.service.DespesaService;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,13 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("v1/despesa")
 public class DespesaController {
 
+  private final DespesaService despesaService;
+
   @GetMapping("/buscar")
-  public String buscar() {
-    return "Working";
+  public List<DespesaDto> buscar(DespesaFilter filter) {
+    return despesaService.buscar(filter);
   }
 
   @PostMapping
   public Despesa salvar(Despesa despesa) {
-    return despesa;
+    return despesaService.salvar(despesa);
   }
 }

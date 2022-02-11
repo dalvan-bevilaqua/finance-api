@@ -1,0 +1,5 @@
+CREATE TABLE usuario (
+  id serial CONSTRAINT PKUSUARIO PRIMARY KEY,
+  usuario VARCHAR (200) NOT NULL,
+  senha VARCHAR(15) NOT NULL
+);

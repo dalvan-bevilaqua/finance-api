@@ -2,7 +2,10 @@ package com.br.finance.modules.despesa.entity;
 
 import com.br.finance.modules.configuracoes.entity.Grupo;
 import com.br.finance.modules.despesa.enums.OcorrenciaDespesaEnum;
-import java.util.Date;
+import com.br.finance.modules.usuario.entity.Usuario;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +27,9 @@ import lombok.Setter;
 @Builder
 @Entity
 @Table(name = "despesa")
-public class Despesa {
+public class Despesa implements Serializable {
+
+  private static final long serialVersionUID = -269697680109030897L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +37,17 @@ public class Despesa {
 
   private String descricao;
 
-  private Date dtLancamento;
-  private Date dtDespesa;
+  private LocalDateTime dtLancamento;
+  private LocalDateTime dtDespesa;
+  private BigDecimal valor;
 
-  private OcorrenciaDespesaEnum tipoDespesa;
+  private OcorrenciaDespesaEnum ocorrenciaDespesa;
 
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "idGrupo", insertable = false, updatable = false)
+  @JoinColumn(name = "idGrupo")
   private Grupo grupo;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "idUsuario")
+  private Usuario usuario;
 }
