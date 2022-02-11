@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("v1/usuario")
+@RequestMapping("api/v1/usuario")
 public class UsuarioController {
 
   @PostMapping(path = "/autenticar")

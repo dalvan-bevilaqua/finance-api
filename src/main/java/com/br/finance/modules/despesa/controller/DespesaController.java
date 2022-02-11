@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("v1/despesa")
+@RequestMapping("api/v1/despesa")
 public class DespesaController {
 
   private final DespesaService despesaService;
