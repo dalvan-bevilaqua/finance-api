@@ -5,10 +5,11 @@ import com.br.finance.modules.despesa.dto.DespesaFilter;
 import com.br.finance.modules.despesa.entity.Despesa;
 import com.br.finance.modules.despesa.service.DespesaService;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,12 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("api/v1/despesa")
 @CrossOrigin(origins = "*")
+@Validated
 public class DespesaController {
 
   private final DespesaService despesaService;
 
-  @GetMapping("/buscar")
-  public List<DespesaDto> buscar(DespesaFilter filter) {
+  @PostMapping(path = "/buscar")
+  public List<DespesaDto> buscar(@Valid @RequestBody DespesaFilter filter) {
     return despesaService.buscar(filter);
   }
 
@@ -34,7 +36,7 @@ public class DespesaController {
   }
 
   @DeleteMapping(path = "/{id}")
-  public void deletar(@PathVariable Integer id){
+  public void deletar(@PathVariable Integer id) {
     despesaService.deletar(id);
   }
 }
