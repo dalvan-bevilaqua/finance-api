@@ -42,4 +42,8 @@ public class DespesaService {
     despesa.setUsuario(usuarioService.getUsuario());
     return despesaMapper.toDto(despesaRepository.save(despesa));
   }
+
+  public void deletar(Integer id) {
+    despesaRepository.deleteById(id);
+  }
 }
