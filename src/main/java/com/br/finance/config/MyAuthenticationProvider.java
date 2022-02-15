@@ -30,10 +30,10 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         usuarioRepository
             .findByUsuario(name)
             .map(Usuario::getSenha)
-            .orElseThrow(() -> new BadCredentialsException("illegal id or passowrd"));
+            .orElseThrow(() -> new BadCredentialsException("Usuário ou senha inválidos"));
 
     if (Objects.equals(password, "") || !Objects.equals(password, storedPassword)) {
-      throw new BadCredentialsException("illegal id or passowrd");
+      throw new BadCredentialsException("Usuário ou senha inválidos");
     }
 
     final Object principal = authentication.getPrincipal();

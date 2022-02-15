@@ -33,6 +33,6 @@ public class Grupo implements Serializable {
   private String cor;
 
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "idUsuario", insertable = false, updatable = false)
+  @JoinColumn(name = "idUsuario")
   private Usuario usuario;
 }
