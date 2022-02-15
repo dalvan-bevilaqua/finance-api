@@ -1,5 +1,7 @@
 package com.br.finance.modules.despesa.dto;
 
+import com.br.finance.modules.usuario.entity.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -15,4 +17,5 @@ public class DespesaFilter implements Serializable {
 
   private Date dtInicial;
   private Date dtFinal;
+  @JsonIgnore private Usuario usuario;
 }

@@ -4,10 +4,12 @@ import com.br.finance.modules.despesa.dto.DespesaDto;
 import com.br.finance.modules.despesa.dto.DespesaFilter;
 import com.br.finance.modules.despesa.entity.Despesa;
 import com.br.finance.modules.despesa.mapper.DespesaMapper;
+import com.br.finance.modules.despesa.predicate.DespesaPredicate;
 import com.br.finance.modules.despesa.repository.DespesaRepository;
 import com.br.finance.modules.usuario.service.UsuarioService;
+import com.querydsl.core.types.Predicate;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +24,17 @@ public class DespesaService {
 
   @Transactional
   public List<DespesaDto> buscar(DespesaFilter filter) {
-    return despesaRepository.findAll().stream()
-        .map(despesa -> despesaMapper.toDto(despesa))
-        .collect(Collectors.toList());
+    filter.setUsuario(usuarioService.getUsuario());
+    Predicate predicate = DespesaPredicate.despesaPredicate(filter);
+
+    var despesaList = new ArrayList<DespesaDto>();
+    despesaRepository
+        .findAll(predicate)
+        .forEach(
+            despesa -> {
+              despesaList.add(despesaMapper.toDto(despesa));
+            });
+    return despesaList;
   }
 
   @Transactional
